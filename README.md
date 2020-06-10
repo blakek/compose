@@ -5,8 +5,9 @@
 Code can become complex when several functions wrap others or `reduce()` is used
 to combine a list of funtions.
 
-This is an alternative that allows composing a pipeline of functions. It calls
-each right-to-left and passes the output from the previous to the next.
+This allows composing a pipeline of functions. `compose` calls each function
+from right-to-left and passes the output from the previous to the next. `pipe`
+is the same, but works from left-to-right.
 
 ## Install
 
@@ -25,7 +26,7 @@ $ npm i --save @blakek/compose
 ## Usage
 
 ```js
-import { compose } from '@blakek/compose';
+import { compose, pipe } from '@blakek/compose';
 
 const fetchUsers = () =>
   Promise.resolve([
@@ -34,9 +35,16 @@ const fetchUsers = () =>
     { sites: { github: { username: 'google' } } }
   ]);
 
+// using `compose`
 const getUsers = compose(
   users => users.map(user => user.sites.github.username),
   fetchUsers
+);
+
+// using `pipe`
+const getUsersPipe = pipe(
+  fetchUsers,
+  users => users.map(user => user.sites.github.username)
 );
 
 getUsers().then(console.log); //» [ 'blakek', 'gsandf', 'google' ]
@@ -48,6 +56,12 @@ getUsers().then(console.log); //» [ 'blakek', 'gsandf', 'google' ]
 
 ```ts
 function compose(...[fn, ...fns]: Function[]): Function;
+```
+
+### `pipe`
+
+```ts
+function pipe(...[fn, ...fns]: Function[]): Function;
 ```
 
 ## Contributing

@@ -1,5 +1,5 @@
 import test from 'ava';
-import { compose } from './index';
+import { compose, pipe } from './index';
 
 test('passes output from function-to-function', async t => {
   const addSeven = (n: number) => n + 7;
@@ -21,4 +21,14 @@ test('works with Promises', async t => {
 
   t.is(typeof run, 'function');
   t.is(await run(), 2);
+});
+
+test('pipe works works left-to-right', async t => {
+  const addSeven = (n: number) => n + 7;
+  const timesThree = (n: number) => n * 3;
+
+  const run = pipe(addSeven, timesThree);
+
+  t.is(typeof run, 'function');
+  t.is(await run(8), 45);
 });
