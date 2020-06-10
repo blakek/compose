@@ -8,7 +8,7 @@ test('passes output from function-to-function', async t => {
   const run = compose(addSeven, timesThree);
 
   t.is(typeof run, 'function');
-  t.is(await run(8), 45);
+  t.is(await run(8), 31);
 });
 
 test('works with Promises', async t => {
@@ -17,7 +17,7 @@ test('works with Promises', async t => {
   const fetchTodos = () => delay(60).then(() => todos);
   const count = (arr: any[]) => arr.length;
 
-  const run = compose(fetchTodos, count);
+  const run = compose(count, fetchTodos);
 
   t.is(typeof run, 'function');
   t.is(await run(), 2);

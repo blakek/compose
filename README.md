@@ -6,7 +6,7 @@ Code can become complex when several functions wrap others or `reduce()` is used
 to combine a list of funtions.
 
 This is an alternative that allows composing a pipeline of functions. It calls
-each in order and passes the output from the previous to the next.
+each right-to-left and passes the output from the previous to the next.
 
 ## Install
 
@@ -35,8 +35,8 @@ const fetchUsers = () =>
   ]);
 
 const getUsers = compose(
-  fetchUsers,
-  users => users.map(user => user.sites.github.username)
+  users => users.map(user => user.sites.github.username),
+  fetchUsers
 );
 
 getUsers().then(console.log); //» [ 'blakek', 'gsandf', 'google' ]
