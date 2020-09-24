@@ -1012,6 +1012,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@blakek/is-promise@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@blakek/is-promise/-/is-promise-1.0.0.tgz#98114ac07bf2dd21a886367b817b9edc1f940a06"
+  integrity sha512-UE/l0u51UK69m8FwmyYVdE3O1cRQU69lcVSEWK6gXJ3wqN+uXvk/BLqFV4XMtZF8hRO1pUHHGhKcMr5vQ7fDZg==
+
 "@concordance/react@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@concordance/react/-/react-2.0.0.tgz#aef913f27474c53731f4fd79cc2f54897de90fde"

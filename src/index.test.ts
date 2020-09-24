@@ -9,10 +9,10 @@ test('passes output from function-to-function', async t => {
   const run = compose(addSeven, timesThree, plusTwo);
 
   t.is(typeof run, 'function');
-  t.is(await run(8), 37);
+  t.is(run(8), 37);
 });
 
-test('works with Promises', async t => {
+test('compose works with Promises', async t => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   const todos = [{ title: 'be cool' }, { title: 'enjoy life' }];
   const fetchTodos = () => delay(60).then(() => todos);
@@ -32,5 +32,17 @@ test('pipe works works left-to-right', async t => {
   const run = pipe(addSeven, timesThree, plusTwo);
 
   t.is(typeof run, 'function');
-  t.is(await run(8), 47);
+  t.is(run(8), 47);
+});
+
+test('pipe works with Promises', async t => {
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const todos = [{ title: 'be cool' }, { title: 'enjoy life' }];
+  const fetchTodos = () => delay(60).then(() => todos);
+  const count = (arr: any[]) => arr.length;
+
+  const run = pipe( fetchTodos, count);
+
+  t.is(typeof run, 'function');
+  t.is(await run(), 2);
 });

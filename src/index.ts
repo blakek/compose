@@ -1,3 +1,5 @@
+import { isPromise } from '@blakek/is-promise';
+
 type GenericFunction = (...args: any[]) => any;
 
 export function compose(...[fn, ...fns]: GenericFunction[]): GenericFunction {
@@ -7,7 +9,15 @@ export function compose(...[fn, ...fns]: GenericFunction[]): GenericFunction {
   }
 
   // Reduce arguments
-  return async (...args: any[]) => fn(await compose(...fns)(...args));
+  return (...args: any[]) => {
+    const value = compose(...fns)(...args);
+
+    if (isPromise(value)) {
+      return Promise.resolve(value).then(value => fn(value));
+    }
+
+    return fn(value);
+  };
 }
 
 export function pipe(...[fn, ...fns]: GenericFunction[]): GenericFunction {
@@ -17,7 +27,15 @@ export function pipe(...[fn, ...fns]: GenericFunction[]): GenericFunction {
   }
 
   // Reduce arguments
-  return async (...args: any[]) => pipe(...fns)(await fn(...args));
+  return (...args: any[]) => {
+    const value = fn(...args);
+
+    if (isPromise(value)) {
+      return Promise.resolve(value).then(value => pipe(...fns)(value));
+    }
+
+    return pipe(...fns)(value);
+  };
 }
 
 export default { compose, pipe };
