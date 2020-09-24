@@ -4,11 +4,12 @@ import { compose, pipe } from './index';
 test('passes output from function-to-function', async t => {
   const addSeven = (n: number) => n + 7;
   const timesThree = (n: number) => n * 3;
+  const plusTwo = (n: number) => n + 2;
 
-  const run = compose(addSeven, timesThree);
+  const run = compose(addSeven, timesThree, plusTwo);
 
   t.is(typeof run, 'function');
-  t.is(await run(8), 31);
+  t.is(await run(8), 37);
 });
 
 test('works with Promises', async t => {
@@ -26,9 +27,10 @@ test('works with Promises', async t => {
 test('pipe works works left-to-right', async t => {
   const addSeven = (n: number) => n + 7;
   const timesThree = (n: number) => n * 3;
+  const plusTwo = (n: number) => n + 2;
 
-  const run = pipe(addSeven, timesThree);
+  const run = pipe(addSeven, timesThree, plusTwo);
 
   t.is(typeof run, 'function');
-  t.is(await run(8), 45);
+  t.is(await run(8), 47);
 });

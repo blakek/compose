@@ -15,6 +15,6 @@ export function pipe(...[fn, ...fns]: Function[]): Function {
   }
 
   // Reduce arguments
-  return async (...args: any[]) => compose(...fns)(await fn(...args));
+  return async (...args: any[]) => pipe(...fns)(await fn(...args));
 }
 export default { compose, pipe };
