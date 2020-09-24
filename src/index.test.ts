@@ -41,7 +41,7 @@ test('pipe works with Promises', async t => {
   const fetchTodos = () => delay(60).then(() => todos);
   const count = (arr: any[]) => arr.length;
 
-  const run = pipe( fetchTodos, count);
+  const run = pipe(fetchTodos, count);
 
   t.is(typeof run, 'function');
   t.is(await run(), 2);

@@ -42,12 +42,23 @@ const getUsers = compose(
 );
 
 // using `pipe`
-const getUsersPipe = pipe(
-  fetchUsers,
-  users => users.map(user => user.sites.github.username)
+const getUsersPipe = pipe(fetchUsers, users =>
+  users.map(user => user.sites.github.username)
 );
 
 getUsers().then(console.log); //» [ 'blakek', 'gsandf', 'google' ]
+
+// NOTE: awaiting is only required if one of the arguments is a Promise
+pipe(
+  n => n + 2,
+  n => n * 3
+)(3); //» 15
+
+await pipe(
+  () => delay(500),
+  n => n + 2,
+  n => n * 3
+)(3); //» 15
 ```
 
 ## API
