@@ -1,6 +1,6 @@
 {
   "name": "@blakek/compose",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "main": "dist/compose.cjs.js",
   "module": "dist/compose.esm.js",
   "browser": "dist/compose.umd.js",
